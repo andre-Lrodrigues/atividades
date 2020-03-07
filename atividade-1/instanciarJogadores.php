@@ -1,22 +1,16 @@
-        <?php
-            include "cabecalho.php";
+<?php
+    include "classes.php";
+    session_start();
 
-            $j = new Jogadores(); 
-
-            if($_SESSION["comecar"] == 0){
-                $j->nome = $_POST["nome"];
-                $j->marcador = 'X';
-
-                $_SESSION["jogadores"][] = $j;
-                $_SESSION["comecar"] = 1;
-                header("Location: formJogador.php");
-            }
-            else{
-                $j->nome = $_POST["nome"];
-                $j->marcador = 'O';
-                $_SESSION["jogadores"][] = $j;
-                header("Location: jogar.php");
-            }
-        ?>
-    </body>
-</html>
+    if($_SESSION["comecar"] == 0){
+        $j = new Jogador($_POST["nome"], "X"); 
+        $_SESSION["jogadores"][] = $j;
+        $_SESSION["comecar"] = 1;
+        header("Location: index.php");
+    }
+    else{
+        $j = new Jogador($_POST["nome"], "O");
+        $_SESSION["jogadores"][] = $j;
+        header("Location: jogar.php");
+    }
+?>
